@@ -8,7 +8,7 @@ The board is made out of an host Atmel ARM Cortex M0+ MCU directly driving on-ma
 ## Examples 
 
 ### LoRaWAN_ReadDevPerso 
-Example for geting the device personnal parameters.
+Example for getting the device personnal parameters.
 ### LoRa_01_send_frame_in_ABP
 Example sending frame in main loop using LoRaWAN in ABP mode. 
 ### LoRa_02_send_frame_OTAA
