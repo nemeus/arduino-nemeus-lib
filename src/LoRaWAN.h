@@ -128,6 +128,8 @@ class LoRaWAN : public Singleton<LoRaWAN>
   DevPerso_t* readDevPerso();
   /* Get ABP perso */
   DevPerso_t* readAbpPerso();
+  // Register a callback for downlink frame
+  void register_downlink_callback(void (*onReceiveDownlink)(uint8_t port , boolean more, const char * hexaPayload, int rssi, int snr));
   protected:
   void treatAtResponse(const char * buffer);
   private:
@@ -164,6 +166,7 @@ class LoRaWAN : public Singleton<LoRaWAN>
   void parseMacReadDataRate(String buffer);
   long deviceAddressToLong(String deviceAddr);
   boolean unsollicitedResponse(const char * buffer);
+  void (*onReceiveDownlink)(uint8_t port , boolean more, const char * hexaPayload, int rssi, int snr);
 
 };
 

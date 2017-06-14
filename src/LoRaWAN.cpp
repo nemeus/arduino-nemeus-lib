@@ -40,8 +40,8 @@ LoRaWAN::LoRaWAN()
   loraWANstate_ = false;
   /* Automatic register LoRaWAN intern callback to filter some received at response */
   NemeusUART::getInstance()->addCallback(onReceiveFromUART);
+  onReceiveDownlink = NULL;
 }
-
 /**
  * Destructor
  */
@@ -1214,7 +1214,7 @@ void LoRaWAN::treatAtResponse(const char * buffer)
   else if (strncmp(buffer, RSP_AT_ERR, strlen(RSP_AT_ERR)) == 0)
   {
     dataContext_->resetOngoingAtCommand();
-  }
+  }  
 
 }
 
@@ -1268,6 +1268,44 @@ boolean LoRaWAN::unsollicitedResponse(const char * buffer)
       }
     }
   }
+  else if (strncmp(buffer, LORAWAN_RCVBIN_UNSOL, strlen(LORAWAN_RCVBIN_UNSOL)) ==0)
+  {
+	/* +MAC: RCVBIN,<port>,<more>,<hex_payload>,<rssi>,<snr> */
+	/* Position index at begin of parameters */
+	index = stringBuffer.indexOf(SEPARATOR)+1;
+	static uint8_t parameterPORT_UNSOL;
+	static  bool parameterMORE_UNSOL;
+	static char parameterHEXPAYLOAD_UNSOL[512];
+	static int parameterRSSI_UNSOL;
+	static int parameterSNR_UNSOL;
+
+	parameterPORT_UNSOL = getParameterAsString(stringBuffer, index).toInt();
+    index = stringBuffer.indexOf(SEPARATOR, index)+1;
+
+	if (getParameterAsString(stringBuffer, index) == "false")
+	{
+		parameterMORE_UNSOL = 1;
+	}
+	else if (getParameterAsString(stringBuffer, index) == "true")
+	{
+		parameterMORE_UNSOL = 0;
+	}
+    index = stringBuffer.indexOf(SEPARATOR, index)+1;
+
+	strncpy(parameterHEXPAYLOAD_UNSOL, getParameterAsString(stringBuffer, index).c_str(), 512);
+	index = stringBuffer.indexOf(SEPARATOR, index)+1;
+
+	parameterRSSI_UNSOL = getParameterAsString(stringBuffer, index).toInt();
+	index = stringBuffer.indexOf(SEPARATOR, index)+1;
+
+	parameterSNR_UNSOL = getParameterAsString(stringBuffer, index).toInt();
+
+	if(onReceiveDownlink != NULL)
+	{
+		onReceiveDownlink(parameterPORT_UNSOL, parameterMORE_UNSOL, parameterHEXPAYLOAD_UNSOL, parameterRSSI_UNSOL, parameterSNR_UNSOL);
+    }
+
+}
 
   return unsollicitedReturn;
 }
@@ -1311,3 +1349,12 @@ void LoRaWAN::parseMacReadDataRate(String stringBuffer)
 
 
 }
+
+/**
+ * Register a callback for downlink frames
+ */
+void LoRaWAN::register_downlink_callback(void (*onReceiveDownlink)(uint8_t port , boolean more, const char * hexaPayload, int rssi, int snr))
+{
+  this->onReceiveDownlink = onReceiveDownlink;
+}
+

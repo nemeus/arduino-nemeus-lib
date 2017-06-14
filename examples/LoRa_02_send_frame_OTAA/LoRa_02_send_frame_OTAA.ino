@@ -21,6 +21,8 @@ char pattern[4] = { 'C', 'A', 'F', 'E' };
 
 /* Reception callback for RF frames */
 void onReceive(const char *string);
+/* Reception callback for Downlink frames */
+void onReceiveDownlink(uint8_t port , boolean more, const char * hexaPayload, int rssi, int snr);
 
 void setup()
 {
@@ -59,7 +61,9 @@ void setup()
 
   /* Register a callback for reception */
   nemeusLib.register_at_response_callback(&onReceive);
-
+  /* Register a callback for downlink frames */
+  nemeusLib.loraWan()->register_downlink_callback(&onReceiveDownlink);
+  
   nemeusLib.setVerbose(true);
 
   /* Enable verbose traces */
@@ -131,4 +135,30 @@ void onReceive(const char *string)
 {
   SerialUSB.print("mm002 >> ");
   SerialUSB.println(string);
+}
+
+/*
+ * If piggyback setting is disabled and device class is A, the server will be polled automatically to receive more downlink frames.
+ * A downlink frame unsolicited response is always sent after a Tx to indicate the end of Rx windows.
+ */
+void onReceiveDownlink(uint8_t port , boolean more, const char * hexaPayload, int rssi, int snr)
+{
+  SerialUSB.println("Downlink frame received");
+  SerialUSB.print("Port:");
+  SerialUSB.println(port);
+  SerialUSB.print("Pending frames:");
+  if(more == 1)
+  {
+    SerialUSB.println("False");
+  }
+  else
+  {
+    SerialUSB.println("True");
+  }
+  SerialUSB.print("Payload:");
+  SerialUSB.println(hexaPayload);
+  SerialUSB.print("RSSI:");
+  SerialUSB.println(rssi);
+  SerialUSB.print("SNR:");
+  SerialUSB.println(snr);
 }
