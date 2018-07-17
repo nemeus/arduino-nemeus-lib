@@ -4,52 +4,52 @@
 # Class
 #######################################
 
-nemeusLib                       KEYWORD1
-RadioTxParam                    KEYWORD1
-RadioRxParam                    KEYWORD1
-MacDataRate                     KEYWORD1
-MacChannel                      KEYWORD1
+nemeusLib	KEYWORD1
+RadioTxParam	KEYWORD1
+RadioRxParam	KEYWORD1
+MacDataRate	KEYWORD1
+MacChannel	KEYWORD1
 
 
 #######################################
 # Methods and Functions
 #######################################
 
-loraWan                         KEYWORD2
-sigfox                          KEYWORD2
-radio                           KEYWORD2
-ON                              KEYWORD2
-OFF                             KEYWORD2
-sendFrame                       KEYWORD2
-getMaximumPayloadSize           KEYWORD2
-setRadioTxParam                 KEYWORD2
-setRadioRxParam                 KEYWORD2
-readDevUID                      KEYWORD2
-setDevUID                       KEYWORD2
-init                            KEYWORD2
-close                           KEYWORD2
-setVerbose                      KEYWORD2
-printTraces                     KEYWORD2
-resetDevice                     KEYWORD2
-register_at_response_callback   KEYWORD2
-unregister_at_response_callback KEYWORD2
-availableTraces                 KEYWORD2
-pollDevice                      KEYWORD2
-continuousRx                    KEYWORD2
-stopRx                          KEYWORD2
-setRadioTxParam                 KEYWORD2
-setRadioRxParam                 KEYWORD2
+loraWan	KEYWORD2
+sigfox	KEYWORD2
+radio	KEYWORD2
+ON	KEYWORD2
+OFF	KEYWORD2
+sendFrame	KEYWORD2
+getMaximumPayloadSize	KEYWORD2
+setRadioTxParam	KEYWORD2
+setRadioRxParam	KEYWORD2
+readDevUID	KEYWORD2
+setDevUID	KEYWORD2
+init	KEYWORD2
+close	KEYWORD2
+setVerbose	KEYWORD2
+printTraces	KEYWORD2
+resetDevice	KEYWORD2
+register_at_response_callback	KEYWORD2
+unregister_at_response_callback	KEYWORD2
+availableTraces	KEYWORD2
+pollDevice	KEYWORD2
+continuousRx	KEYWORD2
+stopRx	KEYWORD2
+setRadioTxParam	KEYWORD2
+setRadioRxParam	KEYWORD2
 
 
 #######################################
 # Constants
 #######################################
 
-RADIO_LORA_MODE                 LITERAL1
-RADIO_FSK_MODE                  LITERAL1
-NEMEUS_SUCCESS                  LITERAL1
-NEMEUS_ERROR                    LITERAL1
-NEMEUS_NO_ANSWER                LITERAL1
-NEMEUS_ERROR_NOACK              LITERAL1
-NEMEUS_ARGUMENT_ERROR           LITERAL1
-NEMEUS_WARNING_PAYLOAD_TRUNACTED  LITERAL1
+RADIO_LORA_MODE	LITERAL1
+RADIO_FSK_MODE	LITERAL1
+NEMEUS_SUCCESS	LITERAL1
+NEMEUS_ERROR	LITERAL1
+NEMEUS_NO_ANSWER	LITERAL1
+NEMEUS_ERROR_NOACK	LITERAL1
+NEMEUS_ARGUMENT_ERROR	LITERAL1
+NEMEUS_WARNING_PAYLOAD_TRUNACTED	LITERAL1
